@@ -1,1 +1,6 @@
 .vs
+FFmpeg
+.idea
+bin
+obj
+cmake-build-*
