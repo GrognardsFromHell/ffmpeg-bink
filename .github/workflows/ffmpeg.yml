@@ -125,7 +125,7 @@ jobs:
           dotnet msbuild -t:Clean,Build,Pack \
                          -p:Configuration=Release \
                          -p:Platform="Any CPU" \
-                         -p:NuGetFiles=nuget_files \
+                         -p:NuGetFiles=..\nuget_files \
                          -p:RepositoryUrl=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git \
                          -p:RepositoryType=git \
                          -p:RepositoryBranch=${GITHUB_REF} \
@@ -140,6 +140,8 @@ jobs:
   push-package:
     name: Push NuGet Package
     needs: [build-nuget-package]
+    # Only push on master branch
+    if: github.ref == 'refs/heads/master'
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
